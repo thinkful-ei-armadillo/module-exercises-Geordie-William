@@ -9,7 +9,40 @@ const store = (function () {
   ];
   const hideCheckedItems = false;
   const searchTerm = '';
+  const findById = function(id) {
+    return this.items.find(item => item.id === id);
+  };
+  const addItem = function(name) {
+    try {
+      Item.validateName(name);
+      this.items.push(Item.create(name));
+    }
+    catch(error)
+    {
+      console.log('Cannot add item: ' + error.message);
+    }
+  };
+  const findAndToggleChecked = function(id){
+    const found = this.findById(id);
+    found.checked = !found.checked;
+  };
+  const findAndUpdateName = function(id, newName){
+    try{
+      Item.validateName(newName);
+      const findItem = this.findById(id);
+      findItem.name = newName;
+    }
+    catch (error) {
+      console.log('Cannot add item: ' + error.message);
+    }
+  };
+  const findAndDeleteItem = function(id){
+    const index = this.items.findIndex(item => item.id === id);
+    this.items.splice(index, 1);
+  };
   return {
-    items, hideCheckedItems, searchTerm
+    items, hideCheckedItems, searchTerm, findById, addItem,
+    findAndToggleChecked, findAndDeleteItem, findAndUpdateName,
   };
 }());
+
