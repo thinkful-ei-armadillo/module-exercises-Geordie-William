@@ -57,8 +57,8 @@ const shoppingList = (function(){
   
   
   function addItemToShoppingList(itemName) {
-    store.items.push({ id: cuid(), name: itemName, checked: false });
     try {
+      store.items.push({ id: cuid(), name: itemName, checked: false });
       Item.validateName;
       Item.create;
       store.items.push(Item.validateName, Item.create);
